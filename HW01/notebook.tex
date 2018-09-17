@@ -1,0 +1,821 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Assignment 1 - Template}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Neural Networks}\label{neural-networks}
+
+In this assignment, you will implement a 2-hidden layer neural network.
+The network should be able to accomodate any number of neurons per
+hidden layer (but the code need only accomodate 2 hidden layers).
+
+Your implementation should only go under the \# TODO sections. Do not
+modify any other part of the tutorial.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Package imports}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{sklearn}
+        \PY{k+kn}{import} \PY{n+nn}{sklearn.datasets}
+        \PY{k+kn}{import} \PY{n+nn}{sklearn.linear\PYZus{}model}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        
+        \PY{c+c1}{\PYZsh{} Display plots inline and change default figure size}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{10.0}\PY{p}{,} \PY{l+m+mf}{8.0}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Initialize random seed \PYZhy{} for reproducibility. DO NOT CHANGE}
+        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Generating a dataset}\label{generating-a-dataset}
+
+We will generate a non-linearly separable dataset using the Scikit
+datasets library (specifically, the make\_moons dataset).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Generate a dataset and plot it}
+        \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{sklearn}\PY{o}{.}\PY{n}{datasets}\PY{o}{.}\PY{n}{make\PYZus{}moons}\PY{p}{(}\PY{l+m+mi}{500}\PY{p}{,} \PY{n}{noise}\PY{o}{=}\PY{l+m+mf}{0.22}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Spectral}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} <matplotlib.collections.PathCollection at 0xa5bf4a8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The dataset we generated has two classes, plotted as red and blue
+points. The data is collected in \(X\) and \(y\) variables, where \(X\)
+is a \(Nx2\) dimensional matrix where each row represents a data point
+in the 2D space, i.e. \[
+X = \left[
+\begin{array}{c}
+    {x^{(1)}}^T \\
+    {x^{(2)}}^T \\
+    \vdots \\
+     {x^{(N)}}^T
+\end{array}
+\right] 
+=\left[
+\begin{array}{cc}
+    x_1^{(1)} & x_2^{(1)} \\
+    x_1^{(2)} & x_2^{(2)} \\
+    \vdots & \vdots \\
+    x_1^{(N)} & x_2^{(N)} 
+\end{array}
+\right]
+\]
+
+such that the \(n^{th}\) data point \(x^{(n)}\) is a 2D vector of the
+form
+\[x^{(n)} = \left[ \begin{array}{c} x_1^{(n)}\\ x_2^{(n)}\end{array}\right]\]
+
+The \(y\) variable is a \(Nx1\) vector such that the \(i^{th}\) element
+represents the class (0 or 1) of the datapoint in the \(i^{th}\) row of
+\(X\).
+
+Our goal is to train a Neural Network classifier that predicts the
+correct class (0 or 1) of each datapoint.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} This function will plot the decision boundary of your classifier. Don\PYZsq{}t touch it :)}
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{pred\PYZus{}func}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Set min and max values and give it some padding}
+            \PY{n}{x\PYZus{}min}\PY{p}{,} \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{o}{.}\PY{l+m+mi}{5}
+            \PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{o}{.}\PY{l+m+mi}{5}
+            \PY{n}{h} \PY{o}{=} \PY{l+m+mf}{0.01}
+            \PY{c+c1}{\PYZsh{} Generate a grid of points with distance h between them}
+            \PY{n}{xx}\PY{p}{,} \PY{n}{yy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{x\PYZus{}min}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{,} \PY{n}{h}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max}\PY{p}{,} \PY{n}{h}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Predict the function value for the whole gid}
+            \PY{n}{Z} \PY{o}{=} \PY{n}{pred\PYZus{}func}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{xx}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{yy}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+            \PY{n}{Z} \PY{o}{=} \PY{n}{Z}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{xx}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Plot the contour and training examples}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Spectral}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Spectral}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Training a Neural Network}\label{training-a-neural-network}
+
+    Given our neural network architecture, we now need to pick an
+\emph{activation function} for our hidden layer. The activation function
+transforms the inputs of the layer into its outputs. For our purposes,
+we will choose the sigmoid function as our activation function.
+
+    The output of our network will also have a sigmoid function applied to
+it. We then classify a data point as class 1 if the output is greater or
+equal to 0.5, and 0 otherwise.
+
+    \subsubsection{Activation Function (and its
+derivative)}\label{activation-function-and-its-derivative}
+
+The activation function of choice is the sigmoid function discussed in
+class. Specifically, we have \[
+\sigma(a) = \frac{1}{1 + \exp(-a)}
+\] Furthermore, the derivative of this function with respect to \(a\) is
+\[
+    \sigma'(a) = \sigma(a)\left(1-\sigma(a)\right)
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{sigmoid}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Compute the sigmoid function}
+        \PY{l+s+sd}{        Note: use the exponential function from the numpy library (i.e. np.exp()) }
+        \PY{l+s+sd}{              in your sigmoid function. This allows the function to compute the }
+        \PY{l+s+sd}{              sigmoid values (element\PYZhy{}wise) for an array of numbers.}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        Parameters: }
+        \PY{l+s+sd}{            a: the input value}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        Output: }
+        \PY{l+s+sd}{            1 / (1 + e\PYZca{}(\PYZhy{}a))}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            
+            \PY{c+c1}{\PYZsh{} TODO: Your implementation goes here}
+            
+            \PY{k}{return} \PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{sigmoid\PYZus{}derivative}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Compute the value of the derivative of a sigmoid function}
+        \PY{l+s+sd}{        Note: you can use the above function here}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        Parameters: }
+        \PY{l+s+sd}{            a: the input value}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        Output: }
+        \PY{l+s+sd}{            derivative of the sigmoid function applied to \PYZsq{}a\PYZsq{}}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{c+c1}{\PYZsh{} TODO: Your implementation goes here}
+            
+            \PY{k}{return} \PY{n}{sigmoid}\PY{p}{(}\PY{n}{a}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{sigmoid}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{How our network makes
+predictions}\label{how-our-network-makes-predictions}
+
+Our network makes predictions using \emph{forward propagation}, which is
+just a bunch of matrix multiplications and the application of the
+activation function(s) we defined above. If \(x\) is the 2-dimensional
+input to our network then we calculate our prediction \(\hat{y}\) (also
+two-dimensional) as follows:
+
+    \[
+\begin{aligned}
+z_1 & = x^T W_1 + b_1 \\
+a_1 & = \sigma(z_1) \\
+z_2 & = a_1^T W_2 + b_2 \\
+a_2 & = \sigma(z_2) \\
+z_3 & = a_2^T W_3 + b_3\\
+a_3 & = \hat{y} = \sigma(z_3)
+\end{aligned}
+\]
+
+    where \(z_i\) is the weighted sum of inputs of layer \(i\) (bias
+included) and \(a_i\) is the output of layer \(i\) after applying the
+activation function. \(W_1, b_1, W_2, b_2, W_3, b_3\) are all the
+parameters of our network, which we need to learn from our training
+data.
+
+Note that the above is for a single data point \(x\). If we work with
+the entire matrix of data points \(X\) (which you should do), then the
+expressions change slightly due to this being matrix algebra.
+Specifically, we have the (now) vector \(z_1\) being computed as \[
+z_1 = XW_1 + b_1
+\] (only the transpose operation was removed). You can figure out the
+remaining steps on your own. If you get lost, draw the matrices on a
+piece of paper and work it out step by step, making sure that the matrix
+dimensions match at each step.
+
+    \subsubsection{Learning the Parameters}\label{learning-the-parameters}
+
+Learning the parameters for our network means finding parameters
+(\(W_1, b_1, W_2, b_2, W_3, b_3\)) that minimize the error on our
+training data. We will define the training error simply as the average
+number of missclassifications. In other words
+
+\[
+\begin{aligned}
+L(y,\hat{y}) = \frac{1}{N} \sum_{n \in N} | \hat{y}_n - y_{n} |
+\end{aligned}
+\]
+
+    where \(\hat{y}_n \in \{0, 1\}\) is the predicted class and
+\(y_n \in \{0, 1\}\) is the true value.
+
+To learn the parameters, we update them iteratively through a process
+called backpropagation. In each iteration, we update the the parameters
+in a three-step process. First, perform a "forward pass" in order to
+calculate the errors per layer, which are defined as \[
+\begin{aligned}
+& \delta_4 = (\hat{y} - y) \circ \sigma'(z_3)\\
+& \delta_3 = \sigma'(z_2) \circ \delta_4W_3^T \\
+& \delta_2 = \sigma'(z_1) \circ \delta_3W_2^T \\
+\end{aligned}
+\]
+
+    Second, we compute the derivatives of the error with respect to each of
+the parameters, i.e.
+
+    \[
+\begin{aligned}
+& \frac{\partial{L}}{\partial{W_3}} = a_2^T \delta_4  \\
+& \frac{\partial{L}}{\partial{b_3}} = \delta_4\\
+& \frac{\partial{L}}{\partial{W_2}} = a_1^T \delta_3  \\
+& \frac{\partial{L}}{\partial{b_2}} = \delta_3\\
+& \frac{\partial{L}}{\partial{W_1}} = x^T \delta_2\\
+& \frac{\partial{L}}{\partial{b_1}} = \delta_2 \\
+\end{aligned}
+\]
+
+    Finally, the gradient descent update rules are then defined as \[
+\begin{align}
+    W_i &= W_i - \eta \frac{\partial L}{\partial W_i}\\
+    b_i &= b_i - \eta \frac{\partial L}{\partial b_i}
+\end{align}
+\]
+
+    This process is repeated over a fixed number of iterations (called
+epochs). The final parameter settings are returned as the trained model.
+
+    \subsubsection{Implementation}\label{implementation}
+
+    First, implement the predict function which takes in input data and
+returns the predicted labels.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Takes a set of data points and predicts a label (0 or 1) for each. A data point has}
+        \PY{l+s+sd}{        a predicted class of 1 if the final layer of the neural network outputs a value greater or equal}
+        \PY{l+s+sd}{        to 0.5. Otherwise, the label is 0}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        Parameters:}
+        \PY{l+s+sd}{            model: a dictionary of parameters}
+        \PY{l+s+sd}{            X: a NxK matrix, where each row represents a single data point.}
+        \PY{l+s+sd}{            }
+        \PY{l+s+sd}{        Output:}
+        \PY{l+s+sd}{            A Nx1 Numpy vector, where the i\PYZsq{}th value is the label (0 or 1) for the i\PYZsq{}th datapoint in X}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            
+            \PY{n}{W1}\PY{p}{,} \PY{n}{b1}\PY{p}{,} \PY{n}{W2}\PY{p}{,} \PY{n}{b2}\PY{p}{,} \PY{n}{W3}\PY{p}{,} \PY{n}{b3} \PY{o}{=} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+            \PY{c+c1}{\PYZsh{} TODO: perform a forward pass, convert output probabilities to classes, and return the predicted classes.}
+            \PY{n}{z1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{a1} \PY{o}{=} \PY{n}{sigmoid}\PY{p}{(}\PY{n}{z1}\PY{p}{)}
+            \PY{n}{z2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{a1}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{a2} \PY{o}{=} \PY{n}{sigmoid}\PY{p}{(}\PY{n}{z2}\PY{p}{)}
+            \PY{n}{z3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{a2}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{a3} \PY{o}{=} \PY{n}{sigmoid}\PY{p}{(}\PY{n}{z3}\PY{p}{)}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{a3}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+            
+            
+\end{Verbatim}
+
+
+    Second, implement the loss function we defined above. We use this to
+evaluate how well our model is doing:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{calculate\PYZus{}loss}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{data}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Compute the loss for the data provided, given the model.}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        Parameters:}
+        \PY{l+s+sd}{            model: a dictionary of parameters}
+        \PY{l+s+sd}{            data:  a tuple containing the X and y data points, where X is }
+        \PY{l+s+sd}{                   an NxK matrix and y is a Nx1 vector of labels}
+        \PY{l+s+sd}{            }
+        \PY{l+s+sd}{        Output:}
+        \PY{l+s+sd}{            A value for the loss function.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            
+            \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{W1}\PY{p}{,} \PY{n}{b1}\PY{p}{,} \PY{n}{W2}\PY{p}{,} \PY{n}{b2}\PY{p}{,} \PY{n}{W3}\PY{p}{,} \PY{n}{b3} \PY{o}{=} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+            \PY{c+c1}{\PYZsh{} TODO: predict the classes of the data, and then calculate the loss.}
+            \PY{n}{z1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{a1} \PY{o}{=} \PY{n}{sigmoid}\PY{p}{(}\PY{n}{z1}\PY{p}{)}
+            \PY{n}{z2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{a1}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{a2} \PY{o}{=} \PY{n}{sigmoid}\PY{p}{(}\PY{n}{z2}\PY{p}{)}
+            \PY{n}{z3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{a2}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{a3} \PY{o}{=} \PY{n}{sigmoid}\PY{p}{(}\PY{n}{z3}\PY{p}{)}
+            \PY{n}{loss} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{absolute}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{a3}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{loss}
+\end{Verbatim}
+
+
+    We also implement a helper function to calculate the output of the
+network. It does forward propagation as defined above and returns the
+class with the highest probability.
+
+    Finally, here comes the function to train our Neural Network. It
+implements batch gradient descent using the backpropagation derivates we
+found above.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}nn}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{h1\PYZus{}dim}\PY{p}{,} \PY{n}{h2\PYZus{}dim}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{num\PYZus{}epochs}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Train the parameters of the neural network by performing backpropagation }
+        \PY{l+s+sd}{        on a training set.}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{        Parameters:}
+        \PY{l+s+sd}{            data          : a tuple containing the X and y data points, where X is }
+        \PY{l+s+sd}{                            an NxK matrix and y is a Nx1 vector of labels}
+        \PY{l+s+sd}{            h1\PYZus{}dim        : number of neurons in the first hidden layer}
+        \PY{l+s+sd}{            h2\PYZus{}dim        : number of neurons in the second hidden layer}
+        \PY{l+s+sd}{            learning\PYZus{}rate : the learning rate for gradient descent}
+        \PY{l+s+sd}{            num\PYZus{}epochs    : number of total iterations of gradient descent. One }
+        \PY{l+s+sd}{                            iteration means updating the parameters once based on the}
+        \PY{l+s+sd}{                            entire dataset.}
+        \PY{l+s+sd}{            verbose       : if set to True, the loss function value is printed every }
+        \PY{l+s+sd}{                            100 iterations}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        Output:}
+        \PY{l+s+sd}{            A dictionary containing all parameters of the neural network. The keys }
+        \PY{l+s+sd}{            of the dictionary are: W1, b1, W2, b2, W3, b3}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            
+            \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+            
+            \PY{n}{num\PYZus{}examples} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}        \PY{c+c1}{\PYZsh{} training set size}
+            \PY{n}{input\PYZus{}dim} \PY{o}{=} \PY{l+m+mi}{2}                \PY{c+c1}{\PYZsh{} number of neurons in the input layer}
+            \PY{n}{output\PYZus{}dim} \PY{o}{=} \PY{l+m+mi}{1}               \PY{c+c1}{\PYZsh{} number of neurons in the output layer}
+              
+            \PY{c+c1}{\PYZsh{} Initialize the parameters to random values. We need to learn these.}
+            \PY{n}{W1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{input\PYZus{}dim}\PY{p}{,} \PY{n}{h1\PYZus{}dim}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{input\PYZus{}dim}\PY{p}{)}
+            \PY{n}{b1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{h1\PYZus{}dim}\PY{p}{)}\PY{p}{)}
+            \PY{n}{W2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{h1\PYZus{}dim}\PY{p}{,} \PY{n}{h2\PYZus{}dim}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{h2\PYZus{}dim}\PY{p}{)}
+            \PY{n}{b2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{h2\PYZus{}dim}\PY{p}{)}\PY{p}{)}
+            \PY{n}{W3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{h2\PYZus{}dim}\PY{p}{,} \PY{n}{output\PYZus{}dim}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{output\PYZus{}dim}\PY{p}{)}
+            \PY{n}{b3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{output\PYZus{}dim}\PY{p}{)}\PY{p}{)}
+            
+        
+            \PY{c+c1}{\PYZsh{} This is what we return at the end. UPDATE THIS AFTER EACH ITERATION}
+            \PY{n}{model} \PY{o}{=} \PY{p}{\PYZob{}} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{W1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{b1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{W2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{b2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W3}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{W3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b3}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{b3}\PY{p}{\PYZcb{}}
+            
+            \PY{c+c1}{\PYZsh{} TODO: Your implementation goes here}
+            \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}epochs}\PY{p}{)}\PY{p}{:}
+                \PY{n}{z1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                \PY{n}{a1} \PY{o}{=} \PY{n}{sigmoid}\PY{p}{(}\PY{n}{z1}\PY{p}{)}
+                \PY{n}{z2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{a1}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                \PY{n}{a2} \PY{o}{=} \PY{n}{sigmoid}\PY{p}{(}\PY{n}{z2}\PY{p}{)}
+                \PY{n}{z3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{a2}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                \PY{n}{a3} \PY{o}{=} \PY{n}{sigmoid}\PY{p}{(}\PY{n}{z3}\PY{p}{)}
+                
+                \PY{n}{s4} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{a3}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{sigmoid\PYZus{}derivative}\PY{p}{(}\PY{n}{z3}\PY{p}{)}
+                \PY{n}{s3} \PY{o}{=} \PY{n}{sigmoid\PYZus{}derivative}\PY{p}{(}\PY{n}{z2}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{s4}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                \PY{n}{s2} \PY{o}{=} \PY{n}{sigmoid\PYZus{}derivative}\PY{p}{(}\PY{n}{z1}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{s3}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+                \PY{n}{dLdW3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{a2}\PY{p}{)}\PY{p}{,} \PY{n}{s4}\PY{p}{)}
+                \PY{n}{dLdb3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{s4}\PY{p}{)}
+                \PY{n}{dLdW2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{a1}\PY{p}{)}\PY{p}{,} \PY{n}{s3}\PY{p}{)}
+                \PY{n}{dLdb2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{s3}\PY{p}{)}
+                \PY{n}{dLdW1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,} \PY{n}{s2}\PY{p}{)}
+                \PY{n}{dLdb1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{s2}\PY{p}{)}
+        
+                \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{learning\PYZus{}rate} \PY{o}{*} \PY{n}{dLdW1}
+                \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{learning\PYZus{}rate} \PY{o}{*} \PY{n}{dLdW2}
+                \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{learning\PYZus{}rate} \PY{o}{*} \PY{n}{dLdW3}
+                
+                \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{learning\PYZus{}rate} \PY{o}{*} \PY{n}{dLdb3}
+                \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{learning\PYZus{}rate} \PY{o}{*} \PY{n}{dLdb2}
+                \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{learning\PYZus{}rate} \PY{o}{*} \PY{n}{dLdb1}
+                
+                \PY{k}{if} \PY{p}{(}\PY{n}{verbose} \PY{o+ow}{and} \PY{p}{(}\PY{n}{epoch} \PY{o}{\PYZpc{}} \PY{l+m+mi}{100} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{print}\PY{p}{(}\PY{n}{calculate\PYZus{}loss}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{data}\PY{p}{)}\PY{p}{)}
+                    
+            \PY{k}{return} \PY{n}{model}
+                
+                
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Training a simple network with 2 neurons per hidden layer.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Build a model }
+         \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+         \PY{n}{model} \PY{o}{=} \PY{n}{train\PYZus{}nn}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.5008862958297043
+0.48934141510224466
+0.2852744904833603
+0.23345861421847036
+0.22063437483013051
+0.21615219833945834
+0.21426162759386147
+0.21330070729097172
+0.21268836140638706
+0.21220832850657895
+0.21178073327434638
+0.2113778545780026
+0.21099138142873397
+0.21061968543661155
+0.2102630430940241
+0.20992197161221401
+0.2095967391636014
+0.20928728928916088
+0.20899329252225463
+0.2087142231428657
+0.2084494285582842
+0.2081981836828525
+0.20795973082961922
+0.2077333077725085
+0.20751816678095447
+0.20731358699937408
+0.2071188820266451
+0.2069334040935501
+0.20675654587036735
+0.20658774065674126
+0.2064264614963782
+0.20627221960435757
+0.20612456238156904
+0.20598307120842294
+0.20584735915041544
+0.205717068665288
+0.20559186937086957
+0.20547145591091498
+0.20535554594090677
+0.20524387824508575
+0.20513621098862547
+0.20503232010391634
+0.20493199780669355
+0.20483505123572604
+0.2047413012086286
+0.20465058108579637
+0.2045627357343095
+0.20447762058377658
+0.204395100766384
+0.20431505033382627
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Plot the decision boundary}
+         \PY{n}{plot\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{predict}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Decision Boundary for hidden layers of sizes 2 and 2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} Text(0.5,1,u'Decision Boundary for hidden layers of sizes 2 and 2')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Varying the hidden layer
+size}\label{varying-the-hidden-layer-size}
+
+We now vary the number of neurons in the hidden layers and observe what
+happens to the decision boundary. This part can take a few minutes to
+run. Just let it be :)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{80}\PY{p}{)}\PY{p}{)}
+         \PY{k+kn}{import} \PY{n+nn}{itertools}
+         
+         \PY{n}{hidden\PYZus{}layer\PYZus{}dimensions} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{]}
+         \PY{n}{hidden\PYZus{}layer\PYZus{}dimensions} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n}{hidden\PYZus{}layer\PYZus{}dimensions}\PY{p}{,} \PY{n}{hidden\PYZus{}layer\PYZus{}dimensions}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{nn\PYZus{}hdim} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{hidden\PYZus{}layer\PYZus{}dimensions}\PY{p}{)}\PY{p}{:}
+             \PY{n}{nn\PYZus{}hdim1} \PY{o}{=} \PY{n}{nn\PYZus{}hdim}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{nn\PYZus{}hdim2} \PY{o}{=} \PY{n}{nn\PYZus{}hdim}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hidden Layers sizes }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ x }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{nn\PYZus{}hdim1}\PY{p}{,} \PY{n}{nn\PYZus{}hdim2}\PY{p}{)}\PY{p}{)}
+             \PY{n}{model} \PY{o}{=} \PY{n}{train\PYZus{}nn}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{nn\PYZus{}hdim1}\PY{p}{,}\PY{n}{nn\PYZus{}hdim2}\PY{p}{)}
+             \PY{n}{plot\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{predict}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Analysis}\label{analysis}
+
+Comment on the above results (as the number of neurons \emph{per layer}
+is varied). If you see unexpected behaviour, try and explain it. Do not
+change any of the hyperparameters that are set.
+
+When you're done, make sure you download this as an HTML (prefered) or
+PDF for submission. Click File -\textgreater{} Download As...
+
+    \textbf{Write your answer here} In neural networks, the numbwer of
+hidden layers determines the complexity of the neural network and
+determines how accurate the result is. For zero hidden layers, a neural
+network can only represent linear separable functions. For one hidden
+network, a neural network can approximate any continuous function. For
+more than one hidden layer, a neural network can represent any arbitrary
+decision boundary. this means the more hidden layers there are the more
+accurate the representation of the data is outputed. The graphs from the
+results shows this by giving the decision boudnaries more accurately
+(curvy in childrens terms). But there are errors in some of the graphs
+(2x1, 2x4, 2x20, 2x50, 4x2, 4x20, and 4x50 specifically). However, this
+is explained by the minimums getting caught. This caused these graphs to
+have linear decision boundaries making them less accurate. When this
+does not occur, the decision boundary is accurately shown as represented
+by the rest of the graph outputs.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
